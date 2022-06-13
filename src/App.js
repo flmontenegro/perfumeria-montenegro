@@ -1,16 +1,10 @@
-import logo from './logo.svg';
 import './App.css';
-
+import './components/NavBar.css'
+import Navegacion from './components/NavBar';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>PERFUMERIA ONLINE</h1>
-      </header>
-    </div>
-  );
+  return Navegacion();
 }
+
 
 export default App;
