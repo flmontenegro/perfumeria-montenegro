@@ -1,24 +1,27 @@
 import React from "react";
 import Belle from "../ItemListContainer/ImgItemList/la-vie-est-belle.jpg"
 
-const ItemListContainer = () => {
+const ItemListContainer = ({title, price, greeting}) => {
     return (
-        
-<div class=" m-20 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700 bg-stone-400/20">
+<div className="ItemListContainer"> 
+<h1 className=" m-10 text-3xl font-semibold  text-gray-400 dark:text-white shadow-md dark:border-gray-700 bg-stone-400/50">{greeting}</h1>
+<div className=" m-20 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700 bg-stone-400/20">
 <a href="perfumes.html">
-<img class="rounded-t-lg" src={Belle} alt=""/>
+<img className="rounded-t-lg" src={Belle} alt=""/>
 </a>
-<div class="p-5">
+<div className="p-5">
 <a href="perfumes.html">
-<h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">La Vie Est Belle - 100ml</h5>
+<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
 </a>
-<p class="mb-3 font-normal text-white dark:text-white">$15000</p>
+<p className="mb-3 font-normal text-white dark:text-white">{price}</p>
 <a href="perfumes.html" class="inline-flex items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-indigo-800 dark:hover:bg-pink-600 dark:focus:ring-blue-800">
 COMPRAR
-<svg class="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+<svg className="ml-2 -mr-1 w-4 h-4" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
 </a>
 </div>
 </div>
+</div>
+
 )
 }
 export default ItemListContainer

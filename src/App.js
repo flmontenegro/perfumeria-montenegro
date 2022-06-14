@@ -7,7 +7,7 @@ function App() {
   return (
     <div className="App">
 <NavBar />
-<ItemListContainer />
+<ItemListContainer greeting="Gracias por visitarnos! Busque su perfume favorito" title="La Vie Est Belle - 100ml" price="$15.000"/>
     </div>
   );
 }
