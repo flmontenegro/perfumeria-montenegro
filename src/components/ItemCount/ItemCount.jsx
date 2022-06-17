@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 
-function ItemCount ({ stock, initial }) {
+function ItemCount ({ stock, initial, onAdd }) {
     const [counter, setCounter] = useState(initial)
     const clickSuma = () => {
         if(counter >= stock){
@@ -18,6 +18,8 @@ function ItemCount ({ stock, initial }) {
       }
     function onAdd() {
         alert(`Cantidad de productos añadidos: ${counter}`) 
+        setCounter(1)
+        return
         }
 return (
     <div className="btnClick">
