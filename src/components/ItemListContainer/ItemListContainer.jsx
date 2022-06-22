@@ -1,25 +1,24 @@
-import React from "react";
-import Belle from "../ItemListContainer/ImgItemList/la-vie-est-belle.jpg"
-import ItemCount from "../ItemCount/ItemCount";
+import React, {useEffect, useState} from "react"; 
+import ItemList from "../ItemList/ItemList"; 
 
-const ItemListContainer = ({title, price, greeting}) => {
-    return (
-<div className="ItemListContainer"> 
-<h1 className=" m-10 text-3xl font-semibold  text-gray-400 dark:text-white shadow-md dark:border-gray-700 bg-stone-400/50">{greeting}</h1>
-<div className=" m-20 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700 bg-stone-400/20">
-<a href="perfumes.html">
-<img className="rounded-t-lg" src={Belle} alt=""/>
-</a>
-<div className="p-5">
-<a href="perfumes.html">
-<h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}</h5>
-</a>
-<p className="mb-3 font-normal text-white dark:text-white">{price}</p>
-<div> <ItemCount stock={5} initial={1} onAdd="onAdd" /> </div>
-</div>
-</div>
-</div>
+export default function ItemListContainer() { 
+    const [productList, setProductList] = useState ([]) 
+    useEffect (() => { 
+        let products = [ 
+            {id: 1 , title: "COCO MADEMOISELLE EAU DE PARFUM - 100ml", price: 10000, pictureURL: 'https://www.chanel.com/images//t_one/w_0.51,h_0.51,c_crop/q_auto:good,f_auto,fl_lossy,dpr_1.2/w_620/coco-mademoiselle-eau-de-parfum-spray-3-4fl-oz--packshot-default-116520-8848376659998.jpg'}, 
+            {id: 2 , title: "MISS DIOR - 100ml", price: 13000, pictureURL: 'https://juleriaque.vteximg.com.br/arquivos/ids/177794-1000-1000/miss-dior-edp-2BC2BFEDC5A1BB8C09A6490E464212FC.jpg?v=637678261843170000'}, 
+            {id: 3 , title: "XS PURE FOR HER - 100ml", price: 15000, pictureURL: 'https://fraguru.com/mdimg/perfume/375x500.51424.jpg' } ]; 
 
-)
+        new Promise((resolve, reject) => { 
+            setTimeout (() => { 
+                resolve(products) 
+            },2000) 
+        }).then ((res)=> { 
+            setProductList(res)}) 
+         }, []) 
+return ( 
+<> 
+<ItemList productList={productList}/> 
+</> 
+) 
 }
-export default ItemListContainer

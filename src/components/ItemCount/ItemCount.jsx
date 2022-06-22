@@ -1,6 +1,6 @@
 import { React, useState } from 'react'
 
-function ItemCount ({ stock, initial, onAdd }) {
+function ItemCount ({ stock, initial}) {
     const [counter, setCounter] = useState(initial)
     const clickSuma = () => {
         if(counter >= stock){
