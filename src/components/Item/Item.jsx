@@ -1,14 +1,19 @@
 import React from 'react' 
+import ItemCount from '../ItemCount/ItemCount'
 
- export default function Item ({id, price, title, pictureURL}) { 
+ export default function Item ({id, price, title, pictureUrl}) { 
+  function onAdd() {
+    alert("Producto añadido al carrito");
+    }
   return ( 
-  <div className="ItemListContainer">  
-  <div className=" m-20 max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:border-gray-700 bg-stone-400/20"> 
-  <a href="perfumes.html"> <img className="rounded-t-lg" src={pictureURL} alt=""/> </a> 
+  <div className="ItemListContainer flex grid-cols-3 w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3 2xl:w-1/4 p-4 flex-none">  
+  <div className=" m-5  max-w-sm bg-grey rounded-lg border border-gray-200 shadow-md dark:border-gray-900 bg-stone-400/20"> 
+  <img className="" src={pictureUrl} alt=""/> 
   <div className="p-5"> 
-  <a href="perfumes.html"><h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">{title}{id}</h5> </a> 
-  <p className="mb-3 font-normal text-white dark:text-white">{price}</p> 
+  <a href="perfumes.html"><h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-black">{title} - {id}</h5> </a> 
+  <p className="mb-3 font-mono text-white dark:text-black">${price}</p> 
   </div>  
+  <ItemCount stock={5} initial={1} onAdd={onAdd}/>
   </div> 
   </div> 
 
