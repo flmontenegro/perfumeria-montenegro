@@ -13,8 +13,11 @@ function App() {
       <BrowserRouter>
         <NavBar />
           <ItemListContainer/>
+<<<<<<< HEAD
           <ItemDetailContainer /> 
       </BrowserRouter>
+=======
+>>>>>>> 34f444755444a68668175ba48042dbf74e319b96
    </div>
   );
 }
