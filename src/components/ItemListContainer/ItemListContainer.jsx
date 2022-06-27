@@ -21,7 +21,7 @@ export default function ItemListContainer() {
          }, []) 
 return ( 
 <div> 
-    <h1 className="text-[50px] font-semibold text-zinc-500 font-serif">BIENVENIDOS!</h1>
+    <h1 className={'text-[50px] font-semibold text-zinc-500 font-serif'}>BIENVENIDOS!</h1>
 <ItemList productList={productList}/> 
 </div> 
 ) 
