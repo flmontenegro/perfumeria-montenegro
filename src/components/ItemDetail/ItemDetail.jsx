@@ -2,9 +2,9 @@ import React from "react";
 import ItemCount from '../ItemCount/ItemCount'
 import './ItemDetail.css'
 
-const itemDetail = ({ id, price, title,marca, pictureUrl, category, productDetail, description, presentacion}) => {
-  function onAdd() {
-    alert("Producto añadido al carrito");
+const itemDetail = ({ price, title,marca, pictureUrl, productDetail, description, presentacion}) => {
+  function onAdd(counter) {
+    alert("Cantidad de productos agregados: "+ counter);
     }
   return (
     <div className={" flex place-content-center  center "}>  
