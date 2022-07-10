@@ -3,11 +3,11 @@ import ItemCount from '../ItemCount/ItemCount'
 import './ItemDetail.css'
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
-import {myContext} from "../../Context/CartContext";
+import {CartContext} from "../../Context/CartContext";
 
 
 const ItemDetail = ({ price, title,marca, pictureUrl, productDetail,productList, description, presentacion}) => {
-  const { addItem } = useContext(myContext); 
+  const { addItem } = useContext(CartContext); 
   const [auxCount, setAuxCount] = useState();
   
   function onAdd(countParam) {

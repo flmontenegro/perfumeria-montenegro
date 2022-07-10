@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function componentName() {
+export default function cart() {
   return (
     <>
 <div className="col-span-1 bg-white lg:block hidden">

@@ -1,8 +1,8 @@
 import React, { createContext, useState } from 'react'
 
-export const myContext = createContext(null);
+export const CartContext = createContext(null);
 
-export default function CartContext({children}) {
+export default function CartProvider({children}) {
 
   const [ cart, setCart ] = useState([]);
 
@@ -27,9 +27,9 @@ function clear() {setCart([])}
 
     return (
       <>
-          <myContext.Provider value={{cart, addItem, removeItem, clear }}>
+          <CartContext.Provider value={{cart, addItem, removeItem, clear }}>
               {children}
-          </myContext.Provider>
+          </CartContext.Provider>
       </>
   );
   }
