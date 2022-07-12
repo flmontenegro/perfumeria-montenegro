@@ -7,14 +7,14 @@ import {CartContext} from "../../Context/CartContext";
 
 
 const ItemDetail = ({ price, title,marca, pictureUrl, productDetail,productList, description, presentacion}) => {
-  const { addItem } = useContext(CartContext); 
+ 
   const [auxCount, setAuxCount] = useState();
-  
+  const { addItem } = useContext(CartContext);
+
   function onAdd(countParam) {
-    
     setAuxCount (countParam);
+    addItem({ price, title, pictureUrl}, countParam)
     alert("Ha agregado "+ countParam + " " + title+ " al carrito de compras." );
-    console.log('setAuxCount'+ auxCount)
     }
   
     return (

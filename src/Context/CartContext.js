@@ -19,15 +19,23 @@ function addItem(item, quantity) {
   }
   console.log("cart ", JSON.stringify(cart))
 }
+console.log(cart)
 // FUNCION BORRAR ITEM
 function removeItem(itemId) {setCart( cart.filter((i) => i.id !== itemId ) );}
 
 // FUNCION BORRAR TODO
 function clear() {setCart([])}
 
+//PRECIO TOTAL
+function totalProduct(cart){ 
+  const total = cart.reduce((prev, next) => prev + next.quantity, 0);
+  return total;
+}
+
+
     return (
       <>
-          <CartContext.Provider value={{cart, addItem, removeItem, clear }}>
+          <CartContext.Provider value={{cart, addItem, removeItem, clear, isInCart,totalProduct }}>
               {children}
           </CartContext.Provider>
       </>
