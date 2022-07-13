@@ -13,7 +13,7 @@ const ItemDetail = ({ price, title,marca, pictureUrl, productDetail,productList,
 
   function onAdd(countParam) {
     setAuxCount (countParam);
-    addItem({ price, title, pictureUrl}, countParam)
+    addItem({ price, title, pictureUrl, marca}, countParam)
     alert("Ha agregado "+ countParam + " " + title+ " al carrito de compras." );
     }
   

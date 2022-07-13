@@ -21,7 +21,7 @@ function addItem(item, quantity) {
 }
 console.log(cart)
 // FUNCION BORRAR ITEM
-function removeItem(itemId) {setCart( cart.filter((i) => i.id !== itemId ) );}
+function removeItem(id) {setCart( cart.filter((i) => i.id !== id ) );}
 
 // FUNCION BORRAR TODO
 function clear() {setCart([])}
