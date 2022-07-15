@@ -10,18 +10,18 @@ export default function CartProvider({children}) {
 const isInCart = (id) => {cart.find((i) => i.id === id);}
 
 function addItem(item, quantity) {
-  let productoDuplicado = isInCart(item.id);
-  if(productoDuplicado){
-      removeItem(productoDuplicado.id);
-      setCart( [...cart, {...item, cantidad:quantity + productoDuplicado.cantidad}] )
+  if(isInCart (item.id)){
+      const auxCart = cart;
+      const itemRep = auxCart.findIndex(i => i.id === item.id);
+      auxCart[itemRep]["quantity"] += quantity;
+
+      setCart(auxCart);
   }else{
-      setCart([...cart, {...item, cantidad:quantity}])
+      setCart([...cart, {...item, cantidad:quantity}]);
   }
-  console.log("cart ", JSON.stringify(cart))
 }
-console.log(cart)
 // FUNCION BORRAR ITEM
-function removeItem(id) {setCart( cart.filter((i) => i.id !== id ) );}
+function removeItem(id) {setCart(cart.filter((i) => i.id !== id ) );}
 
 // FUNCION BORRAR TODO
 function clear() {setCart([])}
