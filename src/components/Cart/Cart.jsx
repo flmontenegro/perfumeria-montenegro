@@ -15,8 +15,8 @@ export default function Cart() {
         <>
             <div>
         <div className=" bg-white lg:block hidden">
-                {cart.map((row) => (
-                    <div key={row.id} className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
+                { cart.map((row) => (
+                    <div  className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
                    
                     <h2 className="text-xl font-semibold">Su compra</h2>
                     <ul className="flex flex-col divide-y divide-gray-700">
@@ -27,7 +27,7 @@ export default function Cart() {
                                     <div className="flex justify-between w-full pb-2 space-x-2">
                                         <div   className="space-y-1" >
                                         
-                                            <h3 className="text-lg font-semibold leading-snug sm:pr-8" >{row.title}</h3>
+                                            <h3 key={row.id} className="text-lg font-semibold leading-snug sm:pr-8" >{row.title}</h3>
                                         </div>
                                         <div className="text-right">
                                             <p className="text-lg font-semibold"> CANTIDAD: {row.cantidad}</p>
@@ -51,8 +51,8 @@ export default function Cart() {
                         </li>
                     </ul>
                     <div className="space-y-1 text-right">
-                        <p>TOTAL: 
-                            <span className="font-semibold"> $ {row.price * row.cantidad}</span>
+                        <p>SUBTOTAL: 
+                            <span className="font-semibold">$ {row.subtotal}</span>
                         </p>
                         
                     </div>
@@ -66,7 +66,12 @@ export default function Cart() {
                     </div>
                 </div>
                 ))}
-
+<div className="space-y-1 text-right">
+                        <p>TOTAL: 
+                            <span className="font-semibold"> $ {cart.reduce((p,c) => p + c.subtotal ,0)}</span>
+                        </p>
+                        
+                    </div>
             </div>
 </div>
 
