@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from "react"; 
 import ItemList from "../ItemList/ItemList"; 
 import { useParams } from "react-router-dom";
+import { collection, getDoc, getDocs, getFirestore, query, where } from 'firebase/firestore'
 
 export default function ItemListContainer() { 
     const [productList, setProductList] = useState ([]) 
@@ -27,6 +28,32 @@ export default function ItemListContainer() {
     
         }, [categoryId])
     
+    const db = getFirestore();
+    let collectionRef =undefined;
+if (!categoryId){collectionRef = collection(db,'productos');
+}else{collectionRef = query(collection(db, 'productos'), where ('category', '==', categoryId));
+   console.log('entre else')
+}
+getDocs(collectionRef).then((res)=>{
+
+    console.log('entre')
+    const auxArray = res.docs.map((item)=> ({...item.data(), id:item.id}));
+    console.log(auxArray)
+    setProductList(auxArray);
+
+    console.log('categoria',categoryId)
+    
+   
+   
+  
+  setLoading(false)
+
+})
+
+
+}, [categoryId])
+    }
+
 return ( 
 <div> 
     <h1 className={'text-[50px] font-semibold text-zinc-500 font-serif'}>BIENVENIDOS!</h1>

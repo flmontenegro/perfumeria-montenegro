@@ -1,6 +1,7 @@
 import {React, useEffect, useState} from 'react'
 import ItemDetail from "./ItemDetail"
 import { useParams } from 'react-router-dom';
+import { doc, getDoc, getFirestore } from 'firebase/firestore'
 
 const ItemDetailContainer =()=> {
 
@@ -25,6 +26,13 @@ const ItemDetailContainer =()=> {
             setProductDetail(item)
         })
 
+        const db = getFirestore();
+       const docRef = doc(db,'productos',itemId);
+       getDoc(docRef).then((item)=>{
+
+        const aux = {...item.data(), id:item.id};
+        setProductDetail(aux);
+        })
     }, [itemId])
   
     return ( <ItemDetail {...productDetail} />

@@ -5,6 +5,19 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import CartProvider from './Context/CartContext';
 
+
+import { initializeApp } from "firebase/app";
+const firebaseConfig = {
+apiKey: "AIzaSyD9hrq4w_WnSlv22GHc3PQkZHJXkc7CXUg",
+authDomain: "perfustore-monte.firebaseapp.com",
+projectId: "perfustore-monte",
+storageBucket: "perfustore-monte.appspot.com",
+messagingSenderId: "258148731058",
+appId: "1:258148731058:web:bce16a075dd532b31761ab"
+};
+
+initializeApp(firebaseConfig);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
