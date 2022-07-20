@@ -28,11 +28,15 @@ function removeItem(id) {setCart(cart.filter((i) => i.id !== id ) );}
 // FUNCION BORRAR TODO
 function clear() {setCart([])}
 
+function totalProduct(cart){ 
+  const total = cart.reduce((prev, next) => prev + next.quantity, 0);
+  return total;
+}
 
 
     return (
       <>
-          <CartContext.Provider value={{cart, addItem, removeItem, clear, isInCart }}>
+          <CartContext.Provider value={{cart, addItem,totalProduct, removeItem, clear, isInCart }}>
               {children}
           </CartContext.Provider>
       </>

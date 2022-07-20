@@ -4,7 +4,7 @@ import { CartContext } from '../../Context/CartContext';
 import { Link } from 'react-router-dom';
 
 export default function Cart() {
-    const { cart, removeItem} = useContext(CartContext);
+    const { cart, removeItem, totalProduct} = useContext(CartContext);
 
     return (
         cart.length === 0 ? (
@@ -52,21 +52,22 @@ export default function Cart() {
                     </ul>
                     <div className="space-y-1 text-right">
                         <p>SUBTOTAL: 
-                            <span className="font-semibold">$ {row.subtotal}</span>
+                            <span className="font-semidbol">$ {row.subtotal}</span>
                         </p>
                         
                     </div>
                     <div className="flex justify-end space-x-4">
-                        <button type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
+                        <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
                             <span className="sr-only sm:not-sr-only">to shop</span>
-                        </button>
+                        </Link>
                         <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
                             <span className="sr-only sm:not-sr-only">Continue to</span>Checkout
                         </button>
                     </div>
                 </div>
                 ))}
-<div className="space-y-1 text-right">
+<div className="space-y-1 text-center text-xxl">
+                       <p>CANTIDAD PRODUCTOS: {totalProduct(cart)}</p>
                         <p>TOTAL: 
                             <span className="font-semibold"> $ {cart.reduce((p,c) => p + c.subtotal ,0)}</span>
                         </p>
