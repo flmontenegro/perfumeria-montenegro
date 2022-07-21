@@ -29,8 +29,7 @@ function removeItem(id) {setCart(cart.filter((i) => i.id !== id ) );}
 function clear() {setCart([])}
 
 function totalProduct(cart){ 
-  const total = cart.reduce((prev, next) => prev + next.quantity, 0);
-  return total;
+  return cart.reduce((prev, next) => prev + next.cantidad, 0);
 }
 
 

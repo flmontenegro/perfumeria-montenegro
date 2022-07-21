@@ -28,31 +28,29 @@ export default function ItemListContainer() {
     
         }, [categoryId])
     
-    const db = getFirestore();
-    let collectionRef =undefined;
-if (!categoryId){collectionRef = collection(db,'productos');
-}else{collectionRef = query(collection(db, 'productos'), where ('category', '==', categoryId));
-   console.log('entre else')
-}
-getDocs(collectionRef).then((res)=>{
+ //   const db = getFirestore();
+ //   let collectionRef =undefined;
+//if (!categoryId){collectionRef = collection(db,'productos');
+//}else{collectionRef = query(collection(db, 'productos'), where ('category', '==', categoryId));
+ //  console.log('entre else')
+//}
+//getDocs(collectionRef).then((res)=>{
 
-    console.log('entre')
-    const auxArray = res.docs.map((item)=> ({...item.data(), id:item.id}));
-    console.log(auxArray)
-    setProductList(auxArray);
+   // console.log('entre')
+   // const auxArray = res.docs.map((item)=> ({...item.data(), id:item.id}));
+   // console.log(auxArray)
+   // setProductList(auxArray);
 
-    console.log('categoria',categoryId)
+   // console.log('categoria',categoryId)
     
    
    
   
-  setLoading(false)
+ // setLoading(false)
 
-})
+//})
 
-
-}, [categoryId])
-    }
+//}, [categoryId]
 
 return ( 
 <div> 

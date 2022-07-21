@@ -14,11 +14,11 @@ export default function Cart() {
             </> ): (
         <>
             <div>
-        <div className=" bg-white lg:block hidden">
+        <div className=" place-items-center flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
+        <h2 className="text-xl font-semibold">DETALLE DE COMPRA</h2>
                 { cart.map((row) => (
                     <div  className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
-                   
-                    <h2 className="text-xl font-semibold">Su compra</h2>
+                    
                     <ul className="flex flex-col divide-y divide-gray-700">
                         <li className="flex flex-col py-6 sm:flex-row sm:justify-between">
                             <div className="flex w-full space-x-2 sm:space-x-4">
@@ -56,23 +56,24 @@ export default function Cart() {
                         </p>
                         
                     </div>
-                    <div className="flex justify-end space-x-4">
-                        <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
-                            <span className="sr-only sm:not-sr-only">to shop</span>
-                        </Link>
-                        <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
-                            <span className="sr-only sm:not-sr-only">Continue to</span>Checkout
-                        </button>
-                    </div>
                 </div>
                 ))}
-<div className="space-y-1 text-center text-xxl">
+                  <div className="space-y-1 text-center text-xxl">
                        <p>CANTIDAD PRODUCTOS: {totalProduct(cart)}</p>
                         <p>TOTAL: 
                             <span className="font-semibold"> $ {cart.reduce((p,c) => p + c.subtotal ,0)}</span>
                         </p>
                         
                     </div>
+                <div className="flex justify-end space-x-4">
+                        <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
+                            <span className="sr-only sm:not-sr-only">to shop</span>
+                        </Link>
+                        <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
+                            <span className="sr-only sm:not-sr-only">Continue to Checkout</span>
+                        </button>
+                    </div>
+              
             </div>
 </div>
 
