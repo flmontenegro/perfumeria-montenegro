@@ -5,6 +5,7 @@ import { collection, getDocs, getFirestore, query, where } from 'firebase/firest
 
 export default function ItemListContainer() { 
     const [productList, setProductList] = useState ([]) 
+    const [loading,setLoading] = useState(true);
     const {categoryId} = useParams()
     useEffect (() => { 
         // let products = [ 
@@ -44,6 +45,7 @@ export default function ItemListContainer() {
          
             const auxArray = res.docs.map((item)=> ({...item.data(), id:item.id}));  
             setProductList(auxArray);
+            setLoading(false);
         
         })
         

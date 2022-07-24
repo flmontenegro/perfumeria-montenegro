@@ -6,6 +6,7 @@ import { doc, getDoc, getFirestore } from 'firebase/firestore'
 const ItemDetailContainer =()=> {
 
     const [productDetail, setProductDetail] = useState({})
+    const [loading,setLoading] = useState(true);
     const {itemId} = useParams();
 
      useEffect(() => { 
@@ -32,7 +33,8 @@ const ItemDetailContainer =()=> {
     getDoc(docRef).then((item)=>{
   
       const aux = {...item.data(), id:item.id};
-      setProductDetail(aux);
+      setProductDetail(aux)
+      setLoading(false);
       })
   
   }, [itemId])
