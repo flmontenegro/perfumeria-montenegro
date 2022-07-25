@@ -4,6 +4,7 @@ import './ItemDetail.css'
 import { Link } from "react-router-dom";
 import { useContext } from 'react';
 import {CartContext} from "../../Context/CartContext";
+import Swal from "sweetalert2";
 
 
 const ItemDetail = (productDetail) => {
@@ -14,7 +15,14 @@ const ItemDetail = (productDetail) => {
   function onAdd(countParam) {
     setAuxCount (countParam);
     addItem(productDetail, countParam)
-    alert("Ha agregado "+ countParam + " " + title+ " al carrito de compras." );
+    Swal.fire({
+      title: 'Agregaste',
+      text:  `${countParam}  ${title} al carrito`,
+      imageUrl: pictureUrl,
+      imageWidth: 300,
+      imageHeight: 300,
+      imageAlt: 'producto',
+    });
     }
   
     return (
