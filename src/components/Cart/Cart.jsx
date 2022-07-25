@@ -70,9 +70,9 @@ export default function Cart() {
                         <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
                             <span className="sr-only sm:not-sr-only">to shop</span>
                         </Link>
-                        <button type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
+                        <Link to="/checkOut" type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
                             <span className="sr-only sm:not-sr-only">Continue to Checkout</span>
-                        </button>
+                        </Link>
                     </div>
               
             </div>
