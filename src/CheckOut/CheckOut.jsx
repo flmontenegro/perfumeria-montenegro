@@ -3,7 +3,7 @@ import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { useState, useContext } from "react";
 import "./CheckOut.css"
 import { CartContext } from "../Context/CartContext";
-import { useNavigate } from 'react-router-dom';
+import Swal from "sweetalert2";
 
 
 
@@ -13,46 +13,34 @@ export default function CheckOut() {
     const [direccion, setDireccion] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [email, setEmail] = useState('');
-    const [idCompra, setIdCompra] = useState('')
+    const [idCompra, setidCompra] = useState(()=>{
+        const hayidCompra = localStorage.getItem('idCompra')
+        return hayidCompra ? JSON.parse(hayidCompra) : ""
+        });
 
-    let navigate = useNavigate();
 
-   function handleClickComprar() {
-    const fecha = new Date();
-    let auxCart = cart.map((item) => {
-      let aux = {
-        id: item.id,
-        title: item.title,
-        cantidad: item.cantidad,
-        price: item.price,
-      };
-      return { ...aux };
-    });
-
-    let pedido = {
-      order: {
-        nombre: nombre,
-        direccion: direccion,
-        mail: email,
-        ciudad: ciudad,
-      },
-      cart: auxCart,
-      total: totalProduct(),
-      date: fecha,
-    };
-
-    if (nombre === '' || email === '' || direccion === ''|| ciudad === '' || cart.length === 0) {
-      alert('Error, debe completar todos los campos');
-      return;
-    } else {
-      const db = getFirestore();
-      const CollectionRef = collection(db, 'orders');
-      addDoc(CollectionRef, pedido).then(({ id }) => setIdCompra(id));
-
-      return navigate('/');
+    function handleClickComprar () {
+        const pedido = {buyer : {nombre: nombre, email: email,direccion: direccion, ciudad: ciudad}, 
+    items : [{cart}],
+    date: Date(), 
+    totalProduct: totalProduct(cart)} ;
+        
+if (!nombre || !email || !direccion || !ciudad ) return (Swal.fire('Hay campos sin completar'));
+//carga Firebase
+const db = getFirestore ();
+const collectionRef = collection(db,'orders');
+addDoc(collectionRef, pedido). then (({id}) =>  setidCompra(id));
+  Swal.fire({
+    position: 'top-center',
+    icon: 'success',
+    title: '¡Muchas gracias por tu compra!',
+    text:  `ID de compra: ${idCompra} `,
+    showConfirmButton: false,
+    timer: 4500
+  });
     }
-  }
-    return (
+
+return (
 
     <div className="h-screen grid grid-cols-3">
         <div className="lg:col-span-2 col-span-3 bg-white-50 space-y-8 px-12">
@@ -75,41 +63,29 @@ export default function CheckOut() {
                 <form id="payment-form" method="POST" action="">
                     <section>
                         <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Información de envío y facturación</h2>
-                        <h3> ID DE COMPRA : {idCompra} </h3>
                         <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span onChange={(e) => setNombre(e.target.value)} className="text-right px-2">Nombre {nombre} </span>
-                                <input name="name" className="focus:outline-none px-3" placeholder="Nombre" required=""/>
+                                <span  className="text-right px-2">Nombre </span>
+                                <input onChange={(e) => setNombre(e.target.value)} name="nombre" className="focus:outline-none px-3" placeholder="Nombre" required=""/>
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span onChange={(e) => setEmail(e.target.value)} className="text-right px-2">Email {email}</span>
-                                <input name="email" type="email" className="focus:outline-none px-3" placeholder="try@example.com" required="" />
+                                <span  className="text-right px-2">Email</span>
+                                <input onChange={(e) => setEmail(e.target.value)} name="email" type="email" className="focus:outline-none px-3" placeholder="try@example.com" required="" />
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span onChange={(e) => setDireccion(e.target.value)} className="text-right px-2">Direccion {direccion} </span>
-                                <input name="address" className="focus:outline-none px-3" placeholder="Direccion" />
+                                <span  className="text-right px-2">Direccion </span>
+                                <input onChange={(e) => setDireccion(e.target.value)} name="direccion" className="focus:outline-none px-3" placeholder="Direccion" />
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span onChange={(e) => setCiudad(e.target.value)} className="text-right px-2">Ciudad {ciudad}</span>
-                                <input name="city" className="focus:outline-none px-3" placeholder="Ciudad" />
+                                <span  className="text-right px-2">Ciudad</span>
+                                <input onChange={(e) => setCiudad(e.target.value)} name="ciudad" className="focus:outline-none px-3" placeholder="Ciudad" />
                             </label>
                         </fieldset>
                     </section>
                 </form>
             </div>
-            <div className="rounded-md">
-                <section>
-                    <h2 className="uppercase tracking-wide text-lg font-semibold text-gray-700 my-2">Informacion de pago</h2>
-                    <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
-                        <label className="flex border-b border-gray-200 h-12 py-3 items-center">
-                            <span className="text-right px-2">Card</span>
-                            <input name="card" className="focus:outline-none px-3 w-full" placeholder="Card number MM/YY CVC" required="" />
-                        </label>
-                    </fieldset>
-                </section>
-            </div>
             <button onClick={handleClickComprar} className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
-            PAGAR
+            COMPRAR
             </button>
         </div>
         <div className="col-span-1 bg-white lg:block hidden">
@@ -138,8 +114,8 @@ export default function CheckOut() {
                     <span className="font-semibold text-pink-500">$ {cart.reduce((p,c) => p + c.subtotal ,0)}</span>
                 </div>
                 <div className="flex justify-between py-4 text-gray-600">
-                    <span>Shipping</span>
-                    <span className="font-semibold text-pink-500">Free</span>
+                    <span>Envío</span>
+                    <span className="font-semibold text-pink-500">Gratis</span>
                 </div>
             </div>
             <div className="font-semibold text-xl px-8 flex justify-between py-8 text-gray-600">
