@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 
 
 export default function Cart() {
-    const { cart, removeItem, totalProduct} = useContext(CartContext);
+    const { cart, removeItem, totalProduct, clear} = useContext(CartContext);
     
     return (
         cart.length === 0 ? (
@@ -15,8 +15,8 @@ export default function Cart() {
             </> ): (
         <>
     <div>
-    <div className=" flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
-    <h2 className="text-xl font-semibold">DETALLE DE COMPRA</h2>
+    <div className=" flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-800 dark:text-gray-100">
+    <h2 className="text-xl  font-semibold">DETALLE DE COMPRA</h2>
         { cart.map((row) => (
         <div  className="flex flex-col max-w-3xl p-6 space-y-4 sm:p-10 dark:bg-gray-900 dark:text-gray-100">
             <ul className="flex flex-col divide-y divide-gray-700">
@@ -67,11 +67,14 @@ export default function Cart() {
                         
                     </div>
                 <div className="flex justify-end space-x-4">
-                        <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">Back
-                            <span className="sr-only sm:not-sr-only">to shop</span>
+                        <Link to="" onClick={()=>{  clear()}} type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">
+                            <span className="sr-only sm:not-sr-only">Vaciar carrito</span>
+                        </Link>
+                        <Link to="/" type="button" className="px-6 py-2 border rounded-md dark:border-violet-400">
+                            <span className="sr-only sm:not-sr-only">Agregar mas productos</span>
                         </Link>
                         <Link to="/checkOut" type="button" className="px-6 py-2 border rounded-md dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400">
-                            <span className="sr-only sm:not-sr-only">Continue to Checkout</span>
+                            <span className="sr-only sm:not-sr-only">FINALIZAR COMPRA</span>
                         </Link>
                     </div>
               

@@ -1,10 +1,11 @@
-import React, { createContext, useState } from 'react'
+import React, { createContext, useState, useEffect } from 'react'
 
 export const CartContext = createContext(null);
 
 export default function CartProvider({children}) {
 
   const [ cart, setCart ] = useState([]);
+
 
 //FUNCION PARA AGREGAR ITEM
 const isInCart = (id) => { return cart.find((i) => i.id === id);}

@@ -1,11 +1,12 @@
 import { React, useState } from 'react'
+import Swal from 'sweetalert2'
 
 
 function ItemCount ({ stock, initial, onAdd}) {
     const [counter, setCounter] = useState(initial)
     const add = () => {
         if(counter >= stock){
-            alert('Producto maximo alcanzado')
+          Swal.fire('Cantidad máxima de productos')
             return
         }
         setCounter(counter + 1)

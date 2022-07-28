@@ -2,7 +2,7 @@ import React from "react";
 import { addDoc, collection, getFirestore } from 'firebase/firestore';
 import { useState, useContext } from "react";
 import "./CheckOut.css"
-import { CartContext } from "../Context/CartContext";
+import { CartContext } from "../../Context/CartContext";
 import Swal from "sweetalert2";
 
 
@@ -13,6 +13,7 @@ export default function CheckOut() {
     const [direccion, setDireccion] = useState('')
     const [ciudad, setCiudad] = useState('')
     const [email, setEmail] = useState('');
+    //mostrar ID de compra
     const [idCompra, setidCompra] = useState(()=>{
         const hayidCompra = localStorage.getItem('idCompra')
         return hayidCompra ? JSON.parse(hayidCompra) : ""
@@ -29,7 +30,7 @@ if (!nombre || !email || !direccion || !ciudad ) return (Swal.fire('Hay campos s
 //carga Firebase
 const db = getFirestore ();
 const collectionRef = collection(db,'orders');
-addDoc(collectionRef, pedido). then (({id}) =>  setidCompra(id));
+addDoc(collectionRef, pedido).then (({id}) =>  setidCompra(id));
   Swal.fire({
     position: 'top-center',
     icon: 'success',
@@ -53,7 +54,7 @@ return (
                     </div>
                     <div className="text-sm font-medium ml-3">Checkout</div>
                 </div>
-                <div className="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Complete sus detalles de envío y pago a continuación. 
+                <div className="text-sm tracking-wide text-gray-500 mt-4 sm:mt-0 sm:ml-4">Complete sus datos y detalles de envío a continuación. 
                 </div>
                 <div className="absolute sm:relative sm:top-auto sm:right-auto ml-auto right-4 top-4 text-gray-400 hover:text-gray-800 cursor-pointer">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -70,7 +71,7 @@ return (
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span  className="text-right px-2">Email</span>
-                                <input onChange={(e) => setEmail(e.target.value)} name="email" type="email" className="focus:outline-none px-3" placeholder="try@example.com" required="" />
+                                <input onChange={(e) => setEmail(e.target.value)} name="email" type="email"  className="focus:outline-none px-3" placeholder="try@example.com" required />
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span  className="text-right px-2">Direccion </span>

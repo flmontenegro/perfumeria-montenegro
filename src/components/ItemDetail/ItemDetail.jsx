@@ -9,11 +9,12 @@ import Swal from "sweetalert2";
 
 const ItemDetail = (productDetail) => {
   const { price, title,marca, pictureUrl, description, presentacion} = productDetail
-  const [auxCount, setAuxCount] = useState();
+  const [auxCount,setAuxCount] = useState();
   const { addItem } = useContext(CartContext);
 
   function onAdd(countParam) {
     setAuxCount (countParam);
+    console.log('setAuxCount'+ auxCount)
     addItem(productDetail, countParam)
     Swal.fire({
       title: 'Agregaste',
