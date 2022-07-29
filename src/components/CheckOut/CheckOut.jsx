@@ -4,6 +4,7 @@ import { useState, useContext } from "react";
 import "./CheckOut.css"
 import { CartContext } from "../../Context/CartContext";
 import Swal from "sweetalert2";
+import { Link } from "react-router-dom";
 
 
 
@@ -21,24 +22,29 @@ export default function CheckOut() {
 
 
     function handleClickComprar () {
-        const pedido = {buyer : {nombre: nombre, email: email,direccion: direccion, ciudad: ciudad}, 
-    items : [{cart}],
-    date: Date(), 
-    totalProduct: totalProduct(cart)} ;
+    const pedido = {
+        buyer : {
+            nombre: nombre, 
+            email: email,
+            direccion: direccion, 
+            ciudad: ciudad}, 
+        items : [{cart}],
+        date: Date(), 
+        totalProduct: totalProduct(cart)} ;
         
 if (!nombre || !email || !direccion || !ciudad ) return (Swal.fire('Hay campos sin completar'));
 //carga Firebase
 const db = getFirestore ();
 const collectionRef = collection(db,'orders');
-addDoc(collectionRef, pedido).then (({id}) =>  setidCompra(id));
-  Swal.fire({
+addDoc(collectionRef, pedido).then (({id}) =>  setidCompra(id)
+{ Swal.fire({
     position: 'top-center',
     icon: 'success',
     title: '¡Muchas gracias por tu compra!',
     text:  `ID de compra: ${idCompra} `,
     showConfirmButton: false,
     timer: 4500
-  });
+  })});
     }
 
 return (
@@ -85,11 +91,11 @@ return (
                     </section>
                 </form>
             </div>
-            <button onClick={handleClickComprar} className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+            <Link onClick={handleClickComprar} className="submit-button px-4 py-3 rounded-full dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400 dark:hover:bg-green-500 dark:focus:ring-blue-800text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
             COMPRAR
-            </button>
+            </Link>
         </div>
-        <div className="col-span-1 bg-white lg:block hidden">
+        <div className="col-span-1 bg-white lg:block ">
             <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Detalle de compra</h1>
             { cart.map((row) => (
             <ul className="py-6 border-b space-y-6 px-8">
