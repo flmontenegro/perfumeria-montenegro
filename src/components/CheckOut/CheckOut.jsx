@@ -4,15 +4,14 @@ import { useState, useContext } from "react";
 import "./CheckOut.css"
 import { CartContext } from "../../Context/CartContext";
 import Swal from "sweetalert2";
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
 
 
 
 export default function CheckOut() {
-    const { cart, totalProduct } = useContext(CartContext);
+    const { cart, totalProduct, clear } = useContext(CartContext);
     const [nombre, setNombre] = useState('');
-    const [direccion, setDireccion] = useState('')
-    const [ciudad, setCiudad] = useState('')
+    const [telefono, setTelefono] = useState('')
     const [email, setEmail] = useState('');
     //mostrar ID de compra
     const [idCompra, setidCompra] = useState(()=>{
@@ -22,33 +21,48 @@ export default function CheckOut() {
 
 
     function handleClickComprar () {
-    const pedido = {
-        buyer : {
-            nombre: nombre, 
-            email: email,
-            direccion: direccion, 
-            ciudad: ciudad}, 
-        items : [{cart}],
-        date: Date(), 
-        totalProduct: totalProduct(cart)} ;
+        const pedido = {buyer : {nombre: nombre, email: email,telefono: telefono,}, 
+    items : [{cart}],
+    date: Date(), 
+    totalProduct: totalProduct(cart)} ;
+
+//validar form
+
+let nombreRegex = /^[a-zA-ZÁ-ÿ\s]{4,40}$/
+let emailRegex = /^[-\w.%+]{1,64}@(?:[A-Z0-9-]{1,63}\.){1,125}[A-Z]{2,63}$/i
+let telefonoRegex = /^[0-9]{7,15}/gm
         
-if (!nombre || !email || !direccion || !ciudad ) return (Swal.fire('Hay campos sin completar'));
+if (!nombreRegex.test(nombre) || !emailRegex.test(email) || !telefonoRegex.test(telefono) ) return (Swal.fire('Complete correctamente todos los campos'));
 //carga Firebase
 const db = getFirestore ();
 const collectionRef = collection(db,'orders');
-addDoc(collectionRef, pedido).then (({id}) =>  setidCompra(id)
-{ Swal.fire({
+addDoc(collectionRef, pedido).then (({id}) => { 
+setidCompra(id)
+  Swal.fire({
     position: 'top-center',
     icon: 'success',
-    title: '¡Muchas gracias por tu compra!',
-    text:  `ID de compra: ${idCompra} `,
+    title: '¡Compra aprobada!',
+    text:  `ID de compra: ${id} `,
     showConfirmButton: false,
-    timer: 4500
-  })});
+    timer: 5500
+  })})
+  setNombre('')
+  setTelefono ('')
+  setEmail ('')
+
+  return clear();
     }
 
-return (
 
+return (
+    cart.length === 0 ? (
+        <> <h1 className={'text-[25px] lg:text-[50px] xl:text-[50px] 2xl:text-[50px] font-semibold text-zinc-500 font-serif'}>¡GRACIAS POR SU COMPRA!</h1>
+        <h2 className={'text-[15px] lg:text-[30px] xl:text-[30px] 2xl:text-[50px] font-sans text-zinc-500'}> Aguarde la confirmación y su ID de compra</h2>
+        <Link to={`/`} type="button"  className="inline-flex  my-8 items-center py-2 px-3 text-sm font-medium text-center text-white bg-blue-700 rounded-lg  focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-indigo-800 dark:hover:bg-green-500 dark:focus:ring-blue-800"><svg class="w-5 h-5 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M3 1a1 1 0 000 2h1.22l.305 1.222a.997.997 0 00.01.042l1.358 5.43-.893.892C3.74 11.846 4.632 14 6.414 14H15a1 1 0 000-2H6.414l1-1H14a1 1 0 00.894-.553l3-6A1 1 0 0017 3H6.28l-.31-1.243A1 1 0 005 1H3zM16 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM6.5 18a1.5 1.5 0 100-3 1.5 1.5 0 000 3z"></path></svg> VOLVER A COMPRAR</Link>
+        <div className='flex justify-center'>
+        </div>
+        </> ): (
+    <>
     <div className="h-screen grid grid-cols-3">
         <div className="lg:col-span-2 col-span-3 bg-white-50 space-y-8 px-12">
             <div className="mt-8 p-4 relative flex flex-col sm:flex-row sm:items-center bg-white shadow rounded-md">
@@ -73,29 +87,25 @@ return (
                         <fieldset className="mb-3 bg-white shadow-lg rounded text-gray-600">
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span  className="text-right px-2">Nombre </span>
-                                <input onChange={(e) => setNombre(e.target.value)} name="nombre" className="focus:outline-none px-3" placeholder="Nombre" required=""/>
+                                <input onChange={(e) => setNombre(e.target.value)} value={nombre} name="nombre" className="focus:outline-none px-3" placeholder="Nombre" required=""/>
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
                                 <span  className="text-right px-2">Email</span>
-                                <input onChange={(e) => setEmail(e.target.value)} name="email" type="email"  className="focus:outline-none px-3" placeholder="try@example.com" required />
+                                <input onChange={(e) => setEmail(e.target.value)} value={email} name="email" type="email"  className="focus:outline-none px-3" placeholder="try@example.com" required />
                             </label>
                             <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span  className="text-right px-2">Direccion </span>
-                                <input onChange={(e) => setDireccion(e.target.value)} name="direccion" className="focus:outline-none px-3" placeholder="Direccion" />
-                            </label>
-                            <label  className="flex border-b border-gray-200 h-12 py-3 items-center">
-                                <span  className="text-right px-2">Ciudad</span>
-                                <input onChange={(e) => setCiudad(e.target.value)} name="ciudad" className="focus:outline-none px-3" placeholder="Ciudad" />
+                                <span  className="text-right px-2">Teléfono </span>
+                                <input onChange={(e) => setTelefono(e.target.value)} value={telefono} name="teléfono" className="focus:outline-none px-3" placeholder="Telefono" />
                             </label>
                         </fieldset>
                     </section>
                 </form>
             </div>
-            <Link onClick={handleClickComprar} className="submit-button px-4 py-3 rounded-full dark:bg-violet-400 dark:text-gray-900 dark:border-violet-400 dark:hover:bg-green-500 dark:focus:ring-blue-800text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
+            <button onClick={handleClickComprar} className="submit-button px-4 py-3 rounded-full bg-pink-400 text-white focus:ring focus:outline-none w-full text-xl font-semibold transition-colors">
             COMPRAR
-            </Link>
+            </button>
         </div>
-        <div className="col-span-1 bg-white lg:block ">
+        <div className="col-span-1 bg-white lg:block hidden">
             <h1 className="py-6 border-b-2 text-xl text-gray-600 px-8">Detalle de compra</h1>
             { cart.map((row) => (
             <ul className="py-6 border-b space-y-6 px-8">
@@ -129,11 +139,9 @@ return (
                 <span>Total</span>
                 <span>${cart.reduce((p,c) => p + c.subtotal ,0)}</span>
             </div>
-    
         </div>
+     
     </div>
-    )
+   </>
+    ))
 }
-
-
-

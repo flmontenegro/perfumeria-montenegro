@@ -7,6 +7,7 @@ export default function ItemListContainer() {
     const [productList, setProductList] = useState ([]) 
     const [loading,setLoading] = useState(true);
     const {categoryId} = useParams()
+    
     useEffect (() => { 
 
         const db = getFirestore();
